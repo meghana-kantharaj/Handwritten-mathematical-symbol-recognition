@@ -1,0 +1,143 @@
+val1=0;
+val2=0;
+val3=0;
+val4=0;
+val5=0;
+val6=0;
+val7=0;
+val8=0;
+val9=0;
+val10=0;
+for im_cnt=1:100
+    s2 = strcat(int2str(im_cnt),'.png');
+I = imread(strcat('C:\Users\megkanth\Documents\dataset\',s2));
+%imshow(I)
+
+Igray = rgb2gray(I);
+%imshow(Igray)
+
+Ibw = im2bw(Igray,graythresh(Igray));
+%figure;imshow(Ibw)
+
+Iedge = edge(uint8(Ibw));
+%figure;imshow(Iedge)
+
+se = strel('square',2);
+Iedge2 = imdilate(Iedge, se);
+%figure;imshow(Iedge2);
+
+Ifill= imfill(Iedge2,'holes');
+%figure;imshow(Ifill)
+BW2 = bwareaopen(Ifill, 150);
+    %imshow(BW2);
+k=bwmorph(BW2,'thin','Inf');
+[Ilabel num] = bwlabel(k);
+disp(num);
+Iprops = regionprops(Ilabel);
+Ibox = [Iprops.BoundingBox];
+Ibox = reshape(Ibox,[4 num]);
+%figure;imshow(I)
+%figure;imshow(Ibox)
+hold on;
+for cnt = 1:num
+rectangle('position',Ibox(:,cnt),'edgecolor','r');
+end
+Sdata=regionprops(Ilabel,'BoundingBox');
+%figure;imshow(Sdata)
+
+ if ((im_cnt>=1&&im_cnt<=9))
+     s1='minus';
+     for i=1:num   
+        Img=imcrop(Ifill,Sdata(i).BoundingBox);
+        Img1=bwmorph(Img,'thin','Inf');
+    Img2 = imresize(Img, [25 25]);
+
+        imwrite(Img2,sprintf('%s%d.tif',s1,i+val1));
+        Name=strcat(s1,num2str(i+val1));
+       % figure,imshow(Img2); title(Name);
+     end
+     val1=val1+num;
+
+
+ elseif ((im_cnt>=20)&&(im_cnt<=29))
+     s1='gt';
+      for i=1:num   
+        Img=imcrop(Ifill,Sdata(i).BoundingBox);
+    Img2 = imresize(Img, [25 25]);
+        
+imwrite(Img2,sprintf('%s%d.tif',s1,i+val3));
+        Name=strcat(s1,num2str(i+val3));
+        %figure,imshow(Img2); title(Name);
+     end
+     val3=val3+num;
+ elseif ((im_cnt>=30)&&(im_cnt<=40))
+     s1='mul';
+      for i=1:num   
+        Img=imcrop(Ifill,Sdata(i).BoundingBox);
+    Img2 = imresize(Img, [25 25]);
+
+        imwrite(Img2,sprintf('%s%d.tif',s1,i+val4));
+        Name=strcat(s1,num2str(i+val4));
+        %figure,imshow(Img2); title(Name);
+     end
+     val4=val4+num;
+ elseif ((im_cnt>=41)&&(im_cnt<=50))
+     s1='s_cb';
+     for i=1:num   
+        Img=imcrop(Ifill,Sdata(i).BoundingBox);
+    Img2 = imresize(Img, [25 25]);
+
+        imwrite(Img2,sprintf('%s%d.tif',s1,i+val5));
+        Name=strcat(s1,num2str(i+val5));
+        %figure,imshow(Img2); title(Name);
+     end
+     val5=val5+num;
+ elseif ((im_cnt>=51)&&(im_cnt<=60))
+     s1='lt';
+     for i=1:num   
+        Img=imcrop(Ifill,Sdata(i).BoundingBox);
+    Img2 = imresize(Img, [25 25]);
+
+        imwrite(Img2,sprintf('%s%d.tif',s1,i+val6));
+        Name=strcat(s1,num2str(i+val6));
+        %figure,imshow(Img2); title(Name);
+     end
+     val6=val6+num;
+
+ elseif ((im_cnt>=71)&&(im_cnt<=80))
+     s1='div';
+     for i=1:num   
+        Img=imcrop(Ifill,Sdata(i).BoundingBox);
+    Img2 = imresize(Img, [25 25]);
+
+        imwrite(Img2,sprintf('%s%d.tif',s1,i+val8));
+        Name=strcat(s1,num2str(i+val8));
+        %figure,imshow(Img2); title(Name);
+     end
+     val8=val8+num;
+ elseif ((im_cnt>=81)&&(im_cnt<=90))
+     s1='plus';    
+     for i=1:num   
+        Img=imcrop(Ifill,Sdata(i).BoundingBox);
+     Img2 = imresize(Img, [25 25]);
+
+       imwrite(Img2,sprintf('%s%d.tif',s1,i+val9));
+        Name=strcat(s1,num2str(i+val9));
+        %figure,imshow(Img2); title(Name);
+     end
+     val9=val9+num;
+ elseif ((im_cnt>=91)&&(im_cnt<=100))
+     s1='s_ob';
+          for i=1:num   
+        Img=imcrop(Ifill,Sdata(i).BoundingBox);
+    Img2 = imresize(Img, [25 25]);
+
+        imwrite(Img2,sprintf('%s%d.tif',s1,i+val10));
+        Name=strcat(s1,num2str(i+val10));
+        %figure,imshow(Img2); title(Name);
+          end
+     val10=val10+num;
+ else
+     s1='a';
+ end
+end

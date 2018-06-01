@@ -1,0 +1,19 @@
+README for Mathematical handwritten symbol recognition
+
+'xtract' is .m file to extract each individual handwritten mathematical symbol from the included dataset according to type, each symbol get saved with a name of their type.
+'z_train' is a .m file used to import images generated in the previous file and annotate each image symbol extracted with a unique classifier number. The numbering scheme is give below.
+
+name			sign		associated no.
+division		/		1
+greater than		>		2
+lesser than 		<		3
+subtraction		-		4
+multiplication		x		5
+addition		+		6
+right parenthesis	)		7
+left parenthesis	(		8
+
+'xtrain' is a .m file used to define a neural network, train it with the symbol inputs from the previous file and find the efficiency of training. The efficiency is calculated by averaging the classification accuracy of the test set wrt the model's predictive ability.
+
+
+
